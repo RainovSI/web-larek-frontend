@@ -115,12 +115,21 @@ export class ApplicationStateModel extends Model<IApplicationState> {
 
 	validateOrderForm() {
 		const errors: FormErrors = {};
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		const phoneRegex = /^\+?[1-9]\d{1,14}$/;
+
 		if (!this.order.email) {
 			errors.email = 'Необходимо указать email';
+		} else if (!emailRegex.test(this.order.email)) {
+			errors.email = 'Некорректный формат email';
 		}
+
 		if (!this.order.phone) {
 			errors.phone = 'Необходимо указать телефон';
+		} else if (!phoneRegex.test(this.order.phone)) {
+			errors.phone = 'Некорректный формат телефона';
 		}
+
 		this.formErrors = errors;
 		this.events.emit('formContactsErrors:change', this.formErrors);
 	}

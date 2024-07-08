@@ -18,10 +18,6 @@ export class ProductCard extends Component<ICard> {
 	protected _category: HTMLElement;
 	protected _button?: HTMLButtonElement;
 
-	addClass(element: HTMLElement, className: string) {
-		element.classList.add(className);
-	}
-
 	constructor(blockName: string, container: HTMLElement, events: ICardActions) {
 		super(container);
 
@@ -32,7 +28,7 @@ export class ProductCard extends Component<ICard> {
 			container
 		);
 		this._price = ensureElement<HTMLElement>(`.${blockName}__price`, container);
-		this._category = ensureElement<HTMLImageElement>(
+		this._category = ensureElement<HTMLElement>(
 			`.${blockName}__category`,
 			container
 		);
@@ -61,7 +57,7 @@ export class ProductCard extends Component<ICard> {
 		if (value === null) {
 			this.setText(this._price, 'Бесценно');
 			if (this._button) {
-				this._button.setAttribute('disabled', '');
+				this.setDisabled(this._button, true);
 			}
 		} else {
 			this.setText(this._price, value + ' синапсов');
@@ -74,7 +70,11 @@ export class ProductCard extends Component<ICard> {
 
 	set category(value: string) {
 		this.setText(this._category, value);
-		this.addClass(this._category, 'card__category' + categoryCard[value]);
+		this.toggleClass(
+			this._category,
+			'card__category' + categoryCard[value],
+			true
+		);
 	}
 
 	set button(value: string) {

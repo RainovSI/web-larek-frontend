@@ -22,11 +22,7 @@ export class DeliveryOrder extends ValidationForm<IDeliveryOrder> {
 
 	setClass(name: string): void {
 		this._buttons.forEach((button) => {
-			if (button.name === name) {
-				button.classList.add('button_alt-active');
-			} else {
-				button.classList.remove('button_alt-active');
-			}
+			this.toggleClass(button, 'button_alt-active', button.name === name);
 		});
 	}
 

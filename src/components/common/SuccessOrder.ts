@@ -6,11 +6,7 @@ export class SuccessOrder extends Component<ISuccessOrder> {
 	protected _close: HTMLElement;
 	protected _total: HTMLElement;
 
-	constructor(
-		container: HTMLElement,
-		sinaps: number,
-		actions: ISuccessOrderActions
-	) {
+	constructor(container: HTMLElement, actions: ISuccessOrderActions) {
 		super(container);
 
 		this._total = ensureElement<HTMLElement>(
@@ -22,8 +18,10 @@ export class SuccessOrder extends Component<ISuccessOrder> {
 			this.container
 		);
 
-		this.setText(this._total, 'списано ' + sinaps + ' синапсов');
-
 		this._close.addEventListener('click', actions.onClick);
+	}
+
+	public updateTotal(sinaps: number) {
+		this.setText(this._total, 'списано ' + sinaps + ' синапсов');
 	}
 }
